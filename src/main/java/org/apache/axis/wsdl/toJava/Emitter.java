@@ -548,7 +548,7 @@ public class Emitter extends Parser {
         // Use the namespace uri to get the appropriate package
         String pkg = getPackage(qName.getNamespaceURI());
         if (reverseJavaNamespacePackages && qName.getNamespaceURI().startsWith("java:")) {
-            pkg = revertName(pkg);
+            pkg = reverseName(pkg);
         }
 
         if (pkg != null && pkg.length() > 0) {
@@ -560,19 +560,19 @@ public class Emitter extends Parser {
         return fullJavaName;
     }    // getJavaName
 
-    private static String revertName(String pkg) {
-        String[] pkgs = pkg.split("\\.");
-        if (pkgs.length > 0) {
-            List arr = Arrays.asList(pkgs);
+    private static String reverseName(String packageName) {
+        String[] packages = packageName.split("\\.");
+        if (packages.length > 0) {
+            List arr = Arrays.asList(packages);
             Collections.reverse(arr);
-            String result = "";
+            StringBuffer buffer = new StringBuffer(packageName.length());
             for (int i = 0; i<arr.size(); i++) {
-                if (i != 0) result += ".";
-                result += pkgs[i];
+                if (i != 0) buffer.append('.');
+                buffer.append(packages[i]);
             }
-            return result;
+            return buffer.toString();
         }
-        return pkg;
+        return packageName;
     }
 
     protected String getJavaNameHook(QName qname) { return null; }
