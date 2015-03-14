@@ -563,10 +563,9 @@ public class Emitter extends Parser {
     private static String reverseName(String packageName) {
         String[] packages = packageName.split("\\.");
         if (packages.length > 0) {
-            List arr = Arrays.asList(packages);
-            Collections.reverse(arr);
+            Collections.reverse(Arrays.asList(packages)); // reversing packages array
             StringBuffer buffer = new StringBuffer(packageName.length());
-            for (int i = 0; i<arr.size(); i++) {
+            for (int i = 0; i<packages.length; i++) {
                 if (i != 0) buffer.append('.');
                 buffer.append(packages[i]);
             }
