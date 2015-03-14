@@ -547,11 +547,11 @@ public class Emitter extends Parser {
         }
         // Use the namespace uri to get the appropriate package
         String pkg = getPackage(qName.getNamespaceURI());
-        if (reverseJavaNamespacePackages && qName.getNamespaceURI().startsWith("java:")) {
-            pkg = reverseName(pkg);
-        }
 
         if (pkg != null && pkg.length() > 0) {
+            if (reverseJavaNamespacePackages && qName.getNamespaceURI().startsWith("java:")) {
+                pkg = reverseName(pkg);
+            }
             fullJavaName = pkg + "." + Utils.xmlNameToJavaClass(qName.getLocalPart());
         } else {
             fullJavaName = Utils.xmlNameToJavaClass(qName.getLocalPart());
